@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieStars</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+
+    <nav style="background-color: blueviolet; position: fixed; top: 0;"> <!-- navbar content here  --> 
+    <i class="material-icons open-sidenav" style="margin-left: 5px;">menu</i>
+    </nav>
+
+  <ul id="slide-out" class="sidenav">
+    <li><div class="user-view">
+      <div class="background">
+        <img src="/background.jpg">
+      </div>
+      <a href="#user"><img class="circle" src="/profile.jpeg"></a>
+      <a href="#name"><span class="white-text name">Manoel Messias</span></a>
+      <a href="#email"><span class="white-text email">universehorizontechynology@gmail.com</span></a>
+    </div></li>
+    <li><a href="https://software-building-legacy-uht-official.firebaseapp.com/"><i class="material-icons">link</i>Officiasl Site</a></li>
+    <!-- <li><a href="#!">Second Link</a></li> -->
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Fullstack</a></li>
+    <li><a class="waves-effect" href="#!" style="font-size: 10px;">Details Project mabe in spring boot 
+        and javascript, css, html and lib sdk Materialize.css, jQuery and others...</li>
+  </ul>
+ 
+    <div id="grid" style="margin-top: 70px;"></div>
+    <script>
+        fetch('https://api.themoviedb.org/3/movie/popular?api_key=9e1d0bb555579b6c099a2b9793a64fe9')
+            .then(response => response.json())
+            .then(data => {
+                let movies = data.results;
+                let grid = document.getElementById('grid');
+                let rows = Math.ceil(movies.length / 5);
+                for (let i = 0; i < rows; i++) {
+                    let row = document.createElement('div');
+                    row.classList.add('row');
+                    for (let j = 0; j < 5; j++) {
+                        let index = i * 5 + j;
+                        if (index < movies.length) {
+                            let movie = movies[index];
+                            let col = document.createElement('div');
+                            col.classList.add('col');
+                            col.innerHTML = `
+                                <img src="https://image.tmdb.org/t/p/w185/${movie.poster_path}" width = '90' height = '100'>
+                                <h5>${movie.title}</h5>
+                                <p>${movie.overview}</p>
+                            `;
+                            row.appendChild(col);
+                        }
+                    }
+                    grid.appendChild(row);
+                }
+            });
+    </script>
+
+
+<script>
+    $(".open-sidenav").click(function(event) {
+    var elem =  $('.sidenav').sidenav()[0]
+    var instance = M.Sidenav.getInstance(elem);
+    instance.open();
+})
+</script>
+
+</body>
+</html>

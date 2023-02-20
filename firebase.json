@@ -1,0 +1,7 @@
+{
+  "hosting": {
+    "site": "movie-stars-spring",
+
+    "public": "public"
+  }
+}
